@@ -7,7 +7,7 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
         elif non_terminal == 'C':
             return w[start] == 'c'
         return False  
-    for split in range(start + 1, j):
+    for split in range(start + 1, end):
         if non_terminal == 'S':
             if (match(w, start, split, 'A') and match(w, split, end, 'B')) or (match(w, start, split, 'B') and match(w, split, end, 'C')):
                 return True
@@ -17,7 +17,7 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
                 return True
 
         elif non_terminal == 'B':
-            for split in range(start + 1, j):
+            for split in range(start + 1, end):
                 if match(w, start, split, 'C') and match(w, split, end, 'C'):
                     return True
 
