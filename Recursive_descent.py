@@ -1,4 +1,5 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
+    print(w)
     if start == end:
         if non_terminal == 'A':
             return w[start-1] == 'a'
