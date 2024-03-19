@@ -31,42 +31,41 @@ dpa = []
 dpb = []
 dpc = []
 def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
-    if start == end - 1:
+    if start == end:
         if non_terminal == 'A':
-            return w[start] == 'a'
+            return w[start-1] == 'a'
         elif non_terminal == 'B':
-            return w[start] == 'b'
+            return w[start-1] == 'b'
         elif non_terminal == 'C':
-            return w[start] == 'c'
-        return False  
-    for split in range(start + 1, end):
+            return w[start-1] == 'c'
+        return False
+    
+    for split in range(start + 1, end + 1):
         if non_terminal == 'S':
-            if (match(w, start, split, 'A') and match(w, split, end, 'B')) or (match(w, start, split, 'B') and match(w, split, end, 'C')):
+            if (match(w, start, split-1, 'A') and match(w, split, end, 'B')) or (match(w, start, split-1, 'B') and match(w, split, end, 'C')):
                 return True
-
+            
         elif non_terminal == 'A':
-            if w[start:split] in dpa:
+            if w[start - 1:end] in dpa:
                 return True
-            if match(w, start, split, 'B') and match(w, split, end, 'A'):
-                dpa.append(w[start:end])
+            if match(w, start, split-1, 'B') and match(w, split, end, 'A'):
                 return True
-
+            
         elif non_terminal == 'B':
-            if w[start:split] in dpb:
+            if w[start - 1:end] in dpb:
                 return True
-            for split in range(start + 1, end):
-                if match(w, start, split, 'C') and match(w, split, end, 'C'):
-                    dpb.append(w[start:end])
-                    return True
-
+            if match(w, start, split-1, 'C') and match(w, split, end, 'C'):
+                return True
+            
         elif non_terminal == 'C':
-            if w[start:split] in dpb:
+            if w[start - 1:end] in dpc:
                 return True
-            if match(w, start, split, 'A') and match(w, split, end, 'B'):
-                dpc.append(w[start:end])
+            if match(w, start, split-1, 'A') and match(w, split, end, 'B'):
                 return True
-
+            
     return False
 
-#w = "BBBBBBBBBBBBBBBAB"
-#print(match(w, 1, len(w), "S"))
+w = "bbb"
+print(improved_match(w, 1, len(w), "S"))
+
+
