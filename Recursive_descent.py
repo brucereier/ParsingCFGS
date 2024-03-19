@@ -1,11 +1,11 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
     if start == end - 1:
         if non_terminal == 'A':
-            return w[start-1] == 'A'
+            return w[start-1] == 'a'
         elif non_terminal == 'B':
-            return w[start-1] == 'B'
+            return w[start-1] == 'b'
         elif non_terminal == 'C':
-            return w[start-1] == 'C'
+            return w[start-1] == 'c'
         return False
     
     for split in range(start + 1, end):
@@ -68,5 +68,5 @@ def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
 
     return False
 
-#w = "bbbbbbbbbbbbbbbab"
-#print(match(w, 1, len(w) + 1, "S"))
+w = "bbbbbbbbbbbbbbbab"
+print(match(w, 1, len(w) + 1, "S"))
