@@ -68,5 +68,5 @@ def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
 
     return False
 
-w = "bbbbbbbbbbbbbbbab"
-print(match(w, 1, len(w) + 1, "S"))
+#w = "bbbbbbbbbbbbbbbab"
+#print(match(w, 1, len(w) + 1, "S"))
