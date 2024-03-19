@@ -1,30 +1,30 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
     if start == end - 1:
         if non_terminal == 'A':
-            return w[start] == 'a'
+            return w[start-1] == 'a'
         elif non_terminal == 'B':
-            return w[start] == 'b'
+            return w[start-1] == 'b'
         elif non_terminal == 'C':
-            return w[start] == 'c'
-        return False  
+            return w[start-1] == 'c'
+        return False
+    
     for split in range(start + 1, end):
         if non_terminal == 'S':
             if (match(w, start, split, 'A') and match(w, split, end, 'B')) or (match(w, start, split, 'B') and match(w, split, end, 'C')):
                 return True
-
+            
         elif non_terminal == 'A':
             if match(w, start, split, 'B') and match(w, split, end, 'A'):
                 return True
-
+            
         elif non_terminal == 'B':
-            for split in range(start + 1, end):
-                if match(w, start, split, 'C') and match(w, split, end, 'C'):
-                    return True
-
+            if match(w, start, split, 'C') and match(w, split, end, 'C'):
+                return True
+            
         elif non_terminal == 'C':
             if match(w, start, split, 'A') and match(w, split, end, 'B'):
                 return True
-
+            
     return False
 
 dpa = []
@@ -67,3 +67,6 @@ def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
                 return True
 
     return False
+
+w = "bbbbbbbbbbbbbbbab"
+print(match(w, 1, len(w) + 1, "S"))
