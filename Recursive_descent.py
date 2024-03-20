@@ -95,13 +95,11 @@ def S():
     if look_ahead == '0':
         match2('0')
         S()
-        if look_ahead == '1': 
-            match2('1')
+        match2('1')
     elif look_ahead == '1':
         match2('1')
         S()
-        if look_ahead == '0':
-            match2('0')
+        match2('0')
     
 def parser_1(w: str) -> bool:
     global input_stream, parsing_success
@@ -117,3 +115,4 @@ def parser_1(w: str) -> bool:
         return False
 
 
+print(parser_1("1110"))
