@@ -39,7 +39,7 @@ def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
         elif non_terminal == 'B':
             return w[start-1] == 'b'
         elif non_terminal == 'C':
-            return w[start-1] == 'c'
+            return w[start-1] == 'a'
         return False
     
     for split in range(start + 1, end + 1):
