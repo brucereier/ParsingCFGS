@@ -73,7 +73,7 @@ input_stream = None
 parsing_success = True
 
 def match2(expected):
-    print(expected)
+    #print(expected)
     global look_ahead, parsing_success
     if look_ahead == expected:
         read_next_char()
@@ -102,6 +102,7 @@ def S():
         return
 
 def parser_1(w: str) -> bool:
+    print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
