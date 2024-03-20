@@ -88,17 +88,18 @@ def read_next_char():
         look_ahead = None
 
 def S():
-    if look_ahead in ('0', '1'):
-        first_char = look_ahead
-        match2(look_ahead)
-        if first_char == '1' and look_ahead == '0':
-            match2('0')
-            if look_ahead in ('0', '1'):
-                S()
-        elif first_char == '0' and look_ahead == '1':
-            match2('1')
-            if look_ahead in ('0', '1'):
-                S()
+    if look_ahead == '1':
+        match2('1')
+        if look_ahead in ('0', '1'):
+            S()  # Continue parsing after matching '1'
+        match2('0')
+    elif look_ahead == '0':
+        match2('0')
+        if look_ahead in ('0', '1'):
+            S()  # Continue parsing after matching '0'
+        match2('1')
+    else:
+        return
 
 def parser_1(w: str) -> bool:
     global input_stream, parsing_success
@@ -117,4 +118,4 @@ def reset_globals():
     parsing_success = True
 
 
-print(parser_1("1001"))
+print(parser_1("0101"))
