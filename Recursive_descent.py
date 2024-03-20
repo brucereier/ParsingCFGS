@@ -117,5 +117,9 @@ def reset_globals():
     input_stream = None
     parsing_success = True
 
+def parser_2(w: str) -> bool:
+    return False
 
+def parser_3(w: str) -> bool:
+    return False
 print(parser_1("0101"))
