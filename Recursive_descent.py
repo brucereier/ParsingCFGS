@@ -1,5 +1,4 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
-    match2(w)
     if start == end:
         if non_terminal == 'A':
             return w[start-1] == 'a'
@@ -75,11 +74,11 @@ parsing_success = True
 
 def match2(expected):
     print(expected)
-    #global look_ahead, parsing_success
-    #if look_ahead == expected:
-    #    read_next_char()
-    #else:
-    #    parsing_success = False
+    global look_ahead, parsing_success
+    if look_ahead == expected:
+        read_next_char()
+    else:
+        parsing_success = False
 
 def read_next_char():
     global look_ahead, input_stream
