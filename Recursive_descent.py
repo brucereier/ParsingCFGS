@@ -99,6 +99,7 @@ def S():
             S()
         else:
             match2('0')
+            S()
     elif look_ahead == '0':
         match2('0')
         if look_ahead == '0':
@@ -107,6 +108,7 @@ def S():
             S()
         else:
             match2('1')
+            S()
     else:
         return
 
@@ -137,5 +139,5 @@ def parser_3(w: str) -> bool:
     return True
 
 
-w = "01"
+w = "0011"
 print(parser_1(w))
