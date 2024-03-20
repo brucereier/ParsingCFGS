@@ -1,16 +1,16 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
-    if start == 1:
-        print(w)
+    #print(str(start) + " " + str(end) + " " + str(non_terminal))
     if start == end:
         if non_terminal == 'A':
             return w[start-1] == 'a'
         elif non_terminal == 'B':
             return w[start-1] == 'b'
         elif non_terminal == 'C':
-            return w[start-1] == 'c'
+            return w[start-1] == 'a'
         return False
     
     for split in range(start + 1, end + 1):
+        #print(split)
         if non_terminal == 'S':
             if (match(w, start, split-1, 'A') and match(w, split, end, 'B')) or (match(w, start, split-1, 'B') and match(w, split, end, 'C')):
                 return True
@@ -126,5 +126,8 @@ def parser_2(w: str) -> bool:
 
 def parser_3(w: str) -> bool:
     print(w)
-    return False
-print(parser_1("0101"))
+    return True
+
+
+w = "ba"
+print(match(w, 1, len(w), "S"))
