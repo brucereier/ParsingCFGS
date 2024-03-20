@@ -90,7 +90,7 @@ def read_next_char():
         look_ahead = None
 
 def S():
-    print(look_ahead)
+    #print(look_ahead)
     if look_ahead == '1':
         match2('1')
         if look_ahead == '1':
