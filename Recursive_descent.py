@@ -112,7 +112,7 @@ def S():
 
 def parser_1(w: str) -> bool:
     reset_globals()
-    #print(w)
+    print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
