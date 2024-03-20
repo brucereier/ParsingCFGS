@@ -99,7 +99,6 @@ def S():
             S()
         else:
             match2('0')
-            S()
     elif look_ahead == '0':
         match2('0')
         if look_ahead == '0':
@@ -108,7 +107,6 @@ def S():
             S()
         else:
             match2('1')
-            S()
     else:
         return
 
