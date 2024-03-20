@@ -90,21 +90,29 @@ def read_next_char():
         look_ahead = None
 
 def S():
+    #print(look_ahead)
     if look_ahead == '1':
         match2('1')
-        if look_ahead in ('0', '1'):
-            S()  # Continue parsing after matching '1'
-        match2('0')
+        if look_ahead == '1':
+            S()
+            match2('0') 
+            S()
+        else:
+            match2('0')
     elif look_ahead == '0':
         match2('0')
-        if look_ahead in ('0', '1'):
-            S()  # Continue parsing after matching '0'
-        match2('1')
+        if look_ahead == '0':
+            S() 
+            match2('1')
+            S()
+        else:
+            match2('1')
     else:
         return
 
 def parser_1(w: str) -> bool:
-    print(w)
+    reset_globals()
+    #print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
@@ -129,5 +137,5 @@ def parser_3(w: str) -> bool:
     return True
 
 
-w = "ba"
-print(match(w, 1, len(w), "S"))
+w = "01"
+print(parser_1(w))
