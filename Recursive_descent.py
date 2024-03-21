@@ -141,26 +141,39 @@ def reset_globals():
     parsing_success = True
 
 def parser_2(w: str) -> bool:
-    print(w)
-    stack = []
-    hash = False
-    for char in w:
-        if not hash:
-            if char == '1':
-                stack.append(char)
-            if char == "#":
-                hash = True
-        else:
-            if char == '1':
-                if not stack:
-                    return False
-                else:
-                    stack.pop()
-            elif char == "#":
-                return False
-    return (len(stack) == 0) and hash
+    reset_globals()
+    #print(w)
+    global input_stream, parsing_success
+    input_stream = iter(w + "$")
+    parsing_success = True
 
+    read_next_char()
+    S2()
 
+    return look_ahead == "$" and parsing_success
+
+def S2():
+    Z3()
+    H2()
+    Z3()
+
+def H2():
+    if look_ahead == '1':
+        match2('1')
+        Z3()
+        J2()
+        Z3()
+        match2('1')
+
+def J2():
+    if look_ahead == '1':
+        match2('1')
+        Z3()
+        J3()
+        Z3()
+        match2('1')
+    else:
+        match2('#')
 def parser_3(w: str) -> bool:
     reset_globals()
     rev = w[::-1]
@@ -199,5 +212,5 @@ def J3():
         match2('0')
     else:
         return
-w = ""
-print(parser_3(w))
+w = "0#1"
+print(parser_2(w))
