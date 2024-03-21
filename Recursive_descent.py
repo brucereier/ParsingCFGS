@@ -142,7 +142,7 @@ def reset_globals():
 
 def parser_2(w: str) -> bool:
     reset_globals()
-    #print(w)
+    print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
@@ -212,5 +212,5 @@ def J3():
         match2('0')
     else:
         return
-w = "0#1"
+w = ""
 print(parser_2(w))
