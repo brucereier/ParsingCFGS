@@ -75,7 +75,7 @@ input_stream = None
 parsing_success = True
 
 def match2(expected):
-    #print(expected)
+    print(expected)
     global look_ahead, parsing_success
     if look_ahead == expected:
         read_next_char()
@@ -89,33 +89,30 @@ def read_next_char():
     except StopIteration:
         look_ahead = None
 
+
 def S():
-    if look_ahead in ('0', '1', None):  # Checks if the look_ahead is one of the valid starting symbols or end of input
-        if look_ahead == '0':
-            match2('0')
-            S() 
-            match2('1')
-        elif look_ahead == '1':
-            match2('1')
-            S()
-            match2('0')
-        # The case for ε is implicitly handled by doing nothing and returning if look_ahead is None or not '0'/'1'.
-        
-        # After handling the base case, we attempt to parse another S to satisfy the SS production recursively.
-        if parsing_success and look_ahead in ('0', '1'):  # Only proceed if parsing is successful so far.
-            S()
+    #print(look_ahead)
+    if look_ahead == '1':
+        match2('1')
+        S()
+        match2('0')
+    elif look_ahead == '0':
+        match2('0')
+        S()
+        match2('1')
+
+    if parsing_success and look_ahead in ('0', '1'):  # Only proceed if parsing is successful so far.
+        print("erp")
+        S()
 
 def parser_1(w: str) -> bool:
-    reset_globals()
-    print(w)
-    global input_stream, parsing_success
-    input_stream = iter(w + "$")
-    parsing_success = True
-
-    read_next_char()
-    S()
-
-    return look_ahead == "$" and parsing_success
+    stack = []
+    for char in w:
+        if stack and ((char == '0' and stack[-1] == '1') or (char == '1' and stack[-1] == '0')):
+            stack.pop()
+        else:
+            stack.append(char)
+    return len(stack) == 0
 
 def reset_globals():
     global look_ahead, input_stream, parsing_success
@@ -128,9 +125,10 @@ def parser_2(w: str) -> bool:
     return False
 
 def parser_3(w: str) -> bool:
+    reset_globals
     print(w)
     return True
 
 
-w = "010101"
+w = "1001"
 print(parser_1(w))
