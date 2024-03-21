@@ -132,7 +132,7 @@ def parser_2(w: str) -> bool:
                 hash = True
         else:
             if char == '1':
-                if not stack:
+                if not stack or char == "#":
                     return False
                 else:
                     stack.pop()
