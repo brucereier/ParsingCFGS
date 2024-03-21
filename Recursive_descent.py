@@ -134,15 +134,6 @@ def parser_1(w: str) -> bool:
 
     return look_ahead == "$" and parsing_success
 
-def parser_5(w: str) -> bool:
-    stack = []
-    for char in w:
-        if stack and ((char == '0' and stack[-1] == '1') or (char == '1' and stack[-1] == '0')):
-            stack.pop()
-        else:
-            stack.append(char)
-    return len(stack) == 0
-
 def reset_globals():
     global look_ahead, input_stream, parsing_success
     look_ahead = None
@@ -171,10 +162,42 @@ def parser_2(w: str) -> bool:
 
 
 def parser_3(w: str) -> bool:
-    reset_globals
-    print(w)
-    return True
+    reset_globals()
+    rev = w[::-1]
+    global input_stream, parsing_success
+    input_stream = iter(rev + "$")
+    parsing_success = True
 
+    read_next_char()
+    S3()
 
-w = "010101"
-print(parser_1(w))
+    return look_ahead == "$" and parsing_success
+
+def S3():
+    global parsing_success
+    if look_ahead == '1':
+        match2('1')
+        J3()
+        match2('0')
+        match2('0')
+        Z3()
+    elif look_ahead != '0':
+        return
+    else:
+        parsing_success = False
+
+def Z3():
+    if look_ahead == '0':
+        match2('0')
+        Z3()
+
+def J3():
+    if look_ahead == '1':
+        match2('1')
+        J3()
+        match2('0')
+        match2('0')
+    else:
+        return
+w = ""
+print(parser_3(w))
