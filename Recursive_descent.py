@@ -51,18 +51,21 @@ def improved_match(w: str, start: int, end: int, non_terminal: str) -> bool:
             if w[start - 1:end] in dpa:
                 return True
             if match(w, start, split-1, 'B') and match(w, split, end, 'A'):
+                dpa.append(w)
                 return True
             
         elif non_terminal == 'B':
             if w[start - 1:end] in dpb:
                 return True
             if match(w, start, split-1, 'C') and match(w, split, end, 'C'):
+                dpb.append(w)
                 return True
             
         elif non_terminal == 'C':
             if w[start - 1:end] in dpc:
                 return True
             if match(w, start, split-1, 'A') and match(w, split, end, 'B'):
+                dpc.append(w)
                 return True
             
     return False
@@ -94,18 +97,44 @@ def S():
     #print(look_ahead)
     if look_ahead == '1':
         match2('1')
-        S()
+        OZ()
         match2('0')
+        S()
     elif look_ahead == '0':
         match2('0')
-        S()
+        ZO()
         match2('1')
-
-    if parsing_success and look_ahead in ('0', '1'):  # Only proceed if parsing is successful so far.
-        print("erp")
         S()
+
+def ZO():
+    if look_ahead == "0":
+        match2('0')
+        ZO()
+        match2('1')
+    else:
+        return
+    
+def OZ():
+    if look_ahead == "1":
+        match2('1')
+        OZ()
+        match2('0')
+    else:
+        return
 
 def parser_1(w: str) -> bool:
+    reset_globals()
+    #print(w)
+    global input_stream, parsing_success
+    input_stream = iter(w + "$")
+    parsing_success = True
+
+    read_next_char()
+    S()
+
+    return look_ahead == "$" and parsing_success
+
+def parser_5(w: str) -> bool:
     stack = []
     for char in w:
         if stack and ((char == '0' and stack[-1] == '1') or (char == '1' and stack[-1] == '0')):
@@ -147,5 +176,5 @@ def parser_3(w: str) -> bool:
     return True
 
 
-w = "1001"
+w = "010101"
 print(parser_1(w))
