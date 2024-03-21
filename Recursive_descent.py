@@ -164,6 +164,8 @@ def H2():
         J2()
         Z3()
         match2('1')
+    else:
+        match2('#')
 
 def J2():
     if look_ahead == '1':
