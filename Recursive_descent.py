@@ -87,6 +87,12 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     # Check if 'S' is in the start of the full string
     return 'S' in dp[1][n]
 
+grammar = {
+    'S': {'AB', 'BC'},
+    'A': {'BA', 'a'},
+    'B': {'CC', 'b'},
+    'C': {'AB', 'a'},
+}
 term_dict = {
     "a": ["A", "C"],
     "b": ["B"]
