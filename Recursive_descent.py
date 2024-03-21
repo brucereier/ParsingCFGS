@@ -161,21 +161,12 @@ def H2():
     if look_ahead == '1':
         match2('1')
         Z3()
-        J2()
+        H2()
         Z3()
         match2('1')
     else:
         match2('#')
 
-def J2():
-    if look_ahead == '1':
-        match2('1')
-        Z3()
-        J3()
-        Z3()
-        match2('1')
-    else:
-        match2('#')
 def parser_3(w: str) -> bool:
     reset_globals()
     rev = w[::-1]
