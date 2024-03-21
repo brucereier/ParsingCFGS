@@ -72,7 +72,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
 
     # Base case: fill in single characters
     for i in range(1, n+1):
-        if w[i-1] in grammar_dict:
+        if s1[i-1] in grammar_dict:
             dp[i][i] = grammar_dict[s1[i-1]]
     
     # Fill the table
