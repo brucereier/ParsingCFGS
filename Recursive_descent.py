@@ -121,6 +121,7 @@ def reset_globals():
     parsing_success = True
 
 def parser_2(w: str) -> bool:
+    print(w)
     stack = []
     hash = False
     for char in w:
@@ -135,7 +136,7 @@ def parser_2(w: str) -> bool:
                     return False
                 else:
                     stack.pop()
-    return len(stack) == 0
+    return (len(stack) == 0) and hash
 
 
 def parser_3(w: str) -> bool:
