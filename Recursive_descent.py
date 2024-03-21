@@ -49,7 +49,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
 
     for i in range(n):
         if s1[i] in grammar_dict:
-            cyk[0][i] = grammar_dict[w[i]]
+            cyk[0][i] = grammar_dict[s1[i]]
 
     for row in range(1, n): 
         for i in range(n - row): 
@@ -61,6 +61,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
                         if B+C in grammar_dict:
                             cyk[row][i] |= grammar_dict[B+C]
     
+    print(cyk)
     return non_terminal in cyk[-1][0]
 
 look_ahead = None
@@ -196,4 +197,4 @@ def J3():
     else:
         return
     
-print(improved_match("bbbbbbbb", 1, 3, "S"))
+print(improved_match("aabab", 3, 3, "B"))
