@@ -91,7 +91,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
                             dp[i][j] |= grammar_dict[B+C]
     
     # Check if 'S' is in the start of the full string
-    return nonterm_dict in dp[1][n]
+    return non_terminal in dp[1][n]
 
 grammar = {
     'S': {'AB', 'BC'},
