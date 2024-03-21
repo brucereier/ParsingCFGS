@@ -58,7 +58,11 @@ def improved_match2(w: str, start: int, end: int, non_terminal: str) -> bool:
     return True
 
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
+    print(w)
+    print(start)
+    print(end)
     s1 = w[start - 1: end]
+    print(s1)
     n = len(s1)
     dp = [[set() for _ in range(n+1)] for _ in range(n+1)]
     
