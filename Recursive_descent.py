@@ -1,5 +1,4 @@
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
-    #print(str(start) + " " + str(end) + " " + str(non_terminal))
     if start == end:
         if non_terminal == 'A':
             return w[start-1] == 'a'
@@ -10,7 +9,6 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
         return False
     
     for split in range(start + 1, end + 1):
-        #print(split)
         if non_terminal == 'S':
             if (match(w, start, split-1, 'A') and match(w, split, end, 'B')) or (match(w, start, split-1, 'B') and match(w, split, end, 'C')):
                 return True
@@ -30,92 +28,35 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
     return False
 
 
-def improved_match2(w: str, start: int, end: int, non_terminal: str) -> bool:
-    # Assuming term_dict is defined outside this function
-    global term_dict
-
-    # Create a 2D array with specific values
-    width_height = len(w)
-    array_2d = [[width_height - row for _ in range(width_height)] for row in range(width_height)]
-
-    row_to_modify = width_height - 1 
-    for col in range(len(w)):
-        char = w[col]
-        if char in term_dict:
-            array_2d[row_to_modify][col] = term_dict[char]
-
-    # Skip the last row (first in iteration) by adjusting the range in the outer loop
-    for row in reversed(range(width_height - 1)):  # Start from the second last row
-        for col in range(width_height - (width_height - 1 - row)):
-            # Checking if the element is a list (from term_dict) or an integer
-            if isinstance(array_2d[row][col], list):
-                print(array_2d[row][col], end=' ')
-            else:
-                print(array_2d[row][col], end=' ')
-        print()  # Newline after each row
-
-    # Placeholder for the actual matching logic, should return a boolean
-    return True
-
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
-    print(w)
-    print(start)
-    print(end)
-    print(non_terminal)
     s1 = w[start - 1: end]
-    print(s1)
     n = len(s1)
-    dp = [[set() for _ in range(n+1)] for _ in range(n+1)]
-    
-    # Convert grammar for easy access
-    grammar_dict = {}
-    for left, rights in grammar.items():
-        for right in rights:
-            if right not in grammar_dict:
-                grammar_dict[right] = set()
-            grammar_dict[right].add(left)
+    cyk = [[set() for _ in range(j, n+1)] for j in range(n, 0, -1)]
 
-    # Base case: fill in single characters
-    for i in range(1, n+1):
-        if s1[i-1] in grammar_dict:
-            dp[i][i] = grammar_dict[s1[i-1]]
-    
-    # Fill the table
-    for length in range(2, n+1):  # Substring lengths
-        for i in range(1, n-length+2):  # Start of substring
-            j = i+length-1  # End of substring
-            for k in range(i, j):  # Position to split the substring
-                for B in dp[i][k]:
-                    for C in dp[k+1][j]:
+    grammar_dict = {
+        'AB': {'S', 'C'},
+        'BC': {'S'},
+        'BA': {'A'}, 
+        'a': {'A', 'C'}, 
+        'CC': {'B'}, 
+        'b': {'B'}
+        }
+
+    for i in range(n):
+        if s1[i] in grammar_dict:
+            cyk[n-1][i] = grammar_dict[w[i]]
+
+    for row in range(n-2, -1, -1): 
+        for i in range(row+1): 
+            for k in range(1, n-row): 
+                left_part = cyk[n-k-1][i]
+                right_part = cyk[n-k+i][i+k]
+                for B in left_part:
+                    for C in right_part:
                         if B+C in grammar_dict:
-                            dp[i][j] |= grammar_dict[B+C]
+                            cyk[row][i] |= grammar_dict[B+C]
     
-    # Check if 'S' is in the start of the full string
-    return non_terminal in dp[1][n]
-
-grammar = {
-    'S': {'AB', 'BC'},
-    'A': {'BA', 'a'},
-    'B': {'CC', 'b'},
-    'C': {'AB', 'a'},
-}
-term_dict = {
-    "a": ["A", "C"],
-    "b": ["B"]
-}
-
-nonterm_dict = {
-    "AA" : [],
-    "AB" : ["S", "C"],
-    "AC" : [],
-    "BA" : ["A"],
-    "BB" : [],
-    "BC" : ["S"],
-    "CA" : [],
-    "CB" : [],
-    "CC" : ["B"],
-}
-#print(improved_match(w, 1, len(w), "S"))
+    return non_terminal in cyk[1][n]
 
 look_ahead = None
 input_stream = None
