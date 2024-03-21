@@ -56,7 +56,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
                         if B+C in grammar_dict:
                             cyk[row][i] |= grammar_dict[B+C]
     
-    return non_terminal in cyk[1][n]
+    return non_terminal in cyk[0][0]
 
 look_ahead = None
 input_stream = None
