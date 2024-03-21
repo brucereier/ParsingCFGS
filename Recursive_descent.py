@@ -58,7 +58,8 @@ def improved_match2(w: str, start: int, end: int, non_terminal: str) -> bool:
     return True
 
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
-    n = len(w)
+    s1 = w[start - 1: end]
+    n = len(s1)
     dp = [[set() for _ in range(n+1)] for _ in range(n+1)]
     
     # Convert grammar for easy access
@@ -72,7 +73,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     # Base case: fill in single characters
     for i in range(1, n+1):
         if w[i-1] in grammar_dict:
-            dp[i][i] = grammar_dict[w[i-1]]
+            dp[i][i] = grammar_dict[s1[i-1]]
     
     # Fill the table
     for length in range(2, n+1):  # Substring lengths
