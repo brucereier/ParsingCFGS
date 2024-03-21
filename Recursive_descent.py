@@ -134,7 +134,7 @@ def parser_2(w: str) -> bool:
                 if not stack:
                     return False
                 else:
-                    stack.append(char)
+                    stack.pop()
     return len(stack) == 0
 
 
