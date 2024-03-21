@@ -30,6 +30,11 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
 
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     s1 = w[start - 1: end]
+    print(w)
+    print(start)
+    print(end)
+    print(non_terminal)
+    print(s1)
     n = len(s1)
     cyk = [[set() for _ in range(j, n+1)] for j in range(n, 0, -1)]
 
