@@ -61,6 +61,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     print(w)
     print(start)
     print(end)
+    print(non_terminal)
     s1 = w[start - 1: end]
     print(s1)
     n = len(s1)
@@ -90,7 +91,7 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
                             dp[i][j] |= grammar_dict[B+C]
     
     # Check if 'S' is in the start of the full string
-    return 'S' in dp[1][n]
+    return nonterm_dict in dp[1][n]
 
 grammar = {
     'S': {'AB', 'BC'},
@@ -248,5 +249,5 @@ def J3():
         match2('0')
     else:
         return
-w = ""
-print(improved_match("aabab", 1, 1, "A"))
+    
+print(improved_match("bbbbbbbb", 1, 1, "A"))
