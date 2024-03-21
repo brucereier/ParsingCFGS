@@ -30,11 +30,6 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
 
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     s1 = w[start - 1: end]
-    print(w)
-    print(start)
-    print(end)
-    print(non_terminal)
-    print(s1)
     n = len(s1)
     cyk = [[set() for _ in range(j)] for j in range(n, 0, -1)] 
 
@@ -61,7 +56,6 @@ def improved_match(w, start: int, end: int, non_terminal: str) -> True:
                         if B+C in grammar_dict:
                             cyk[row][i] |= grammar_dict[B+C]
     
-    print(cyk)
     return non_terminal in cyk[-1][0]
 
 look_ahead = None
@@ -69,7 +63,6 @@ input_stream = None
 parsing_success = True
 
 def match2(expected):
-    print(expected)
     global look_ahead, parsing_success
     if look_ahead == expected:
         read_next_char()
@@ -85,7 +78,6 @@ def read_next_char():
 
 
 def S():
-    #print(look_ahead)
     if look_ahead == '1':
         match2('1')
         OZ()
@@ -115,7 +107,6 @@ def OZ():
 
 def parser_1(w: str) -> bool:
     reset_globals()
-    #print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
@@ -133,7 +124,6 @@ def reset_globals():
 
 def parser_2(w: str) -> bool:
     reset_globals()
-    print(w)
     global input_stream, parsing_success
     input_stream = iter(w + "$")
     parsing_success = True
@@ -196,5 +186,3 @@ def J3():
         match2('0')
     else:
         return
-    
-print(improved_match("aabab", 3, 3, "B"))
