@@ -1,3 +1,5 @@
+#This assignment was done by a group
+#Group Members: Bruce Reier, Jake Terrill
 def match(w: str, start: int, end: int, non_terminal: str) -> bool:
     if start == end:
         if non_terminal == 'A':
