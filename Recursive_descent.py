@@ -26,8 +26,26 @@ def match(w: str, start: int, end: int, non_terminal: str) -> bool:
                 return True
             
     return False
+"""
+PART 2 WRITTEN RESPONSE:
+Based on the nature of recursive parsing, the the maximum time 
+it might take for a grammar to determine if a string of length
+n belongs to the language is O(2^n). The recursive parser has
+many layers of work that add up exponentially as it parses 
+a language. The parser checks wether a substring can be generated 
+by a specific non terminal in the grammar, and for any given substring 
+it tries all possible splits. A split is where it divides the substring 
+into two parts and checks to see if there is a rule from the grammar that
+can generate the two parts from the starting non terminal given. For a substring 
+of length n, there are n-1 ways to split it into two non epsilon strings. Once the 
+split is made, each part of the split then recursively does the same and considers 
+all possible splits of itself - the substring of the original. The number of calls
+grows exponentially with each depth of recursion, where the number of recursive 
+calls doubles with each additional split. We know it doubles since we are spitting
+into two parts. The total number of recursive calls (which explore all possible splits)
+is what primarily drives the O(2^n) complexity. Thus, the maximum time it might take is O(2^n).
 
-
+"""
 def improved_match(w, start: int, end: int, non_terminal: str) -> True:
     s1 = w[start - 1: end]
     n = len(s1)
